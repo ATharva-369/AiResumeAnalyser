@@ -1,0 +1,12 @@
+{
+    "match_skills": [
+        "javascript",
+        "html",
+        "css",
+        "git"
+    ],
+    "match_roles": [
+        "frontend developer",
+        "developer"
+    ]
+}

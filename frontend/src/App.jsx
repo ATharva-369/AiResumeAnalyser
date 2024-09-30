@@ -1,8 +1,8 @@
 import { useState } from "react";
 import './App.css';
 import React from 'react';
-import {createRoot} from 'react-dom/client'
 import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 function App() {
   const [file, setFile] = useState();
@@ -20,6 +20,7 @@ function App() {
 
   const handleSubmit= async (e) => {
     e.preventDefault();
+    setMarkdown("# Getting analysis.....")
     const url = "http://localhost:5000/api/uploadData";
     const formData = new FormData();
     formData.append("resume", file);
@@ -33,14 +34,16 @@ function App() {
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.message}`);
+        setMarkdown(`# Error getting analysis`)
       }
-
+    
     let markdown = await response.json();
     setMarkdown(markdown.result);
     console.log(markdown)
 
     } catch {
       console.log(e.message);
+      setMarkdown(`# Error getting analysis`)
     }
   };
 
@@ -49,15 +52,16 @@ function App() {
       <form>
         <div className="container-1">
           <input type="file" onChange={handleAddFile} />
-        </div>
-        <div className="container-2">
-          <textarea onChange={handleAddJobDescription}/>
           <button type="submit" onClick={handleSubmit}>
             Analyze
           </button>
         </div>
+        <div className="container-2">
+          <textarea onChange={handleAddJobDescription}/>
+
+        </div>
         <div id="analysis">
-        <Markdown>{markdown}</Markdown>
+        <Markdown remarkPlugins={[remarkGfm]}>{markdown}</Markdown>
         </div>
       </form>
     </div>
