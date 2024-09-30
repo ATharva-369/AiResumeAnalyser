@@ -1,6 +1,9 @@
 from flask import Flask, request, jsonify
 import os
+import uuid
 from flask_cors import CORS  # Import CORS
+from werkzeug.utils import secure_filename
+
 
 from generate_llm_scores import generate_llm_scores
 from parser import parser
@@ -29,8 +32,11 @@ def upload_file():
     if file.filename == "":
         return jsonify({"error":"No selected resume file"}),400
     
-    filepath = os.path.join(app.config['UPLOAD_FOLDER'],file.filename)
-    file.save(filepath)
+    if file:
+        unique_filename = str(uuid.uuid4()) + "_" +secure_filename(file.filename)
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'],unique_filename)
+        file.save(filepath)
+
 
     result = run_python_script(filepath, job_description)
     os.remove(filepath)
