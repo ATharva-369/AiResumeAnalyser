@@ -21,7 +21,7 @@ function App() {
   const handleSubmit= async (e) => {
     e.preventDefault();
     setMarkdown("# Getting analysis.....")
-    const url = "http://localhost:8000/api/uploadData";
+    const url = "https://airesumeanalyser.onrender.com/api/uploadData";
     const formData = new FormData();
     formData.append("resume", file);
     formData.append("jobDescription", jobDescription);
