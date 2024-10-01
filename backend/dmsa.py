@@ -8,7 +8,7 @@ import json
 
 def dmsa(job_description):
 
-    nlp = spacy.load("en_core_web_lg")
+    nlp = spacy.load("en_core_web_sm")
 
 
     #cleaning the text
