@@ -22,6 +22,7 @@ if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
 @app.route("/api/uploadData",methods=['POST'])
+@cross_origin()
 def upload_file():
     if 'resume' not in request.files:
         return jsonify({"error": "No resume file"}),400
