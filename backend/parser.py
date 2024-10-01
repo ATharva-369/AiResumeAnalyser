@@ -6,7 +6,7 @@ import json
 
 def parser(file):
 
-    nlp = spacy.load("en_core_web_lg")
+    nlp = spacy.load("en_core_web_sm")
 
 
     #Opening PDF
